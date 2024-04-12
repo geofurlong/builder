@@ -1,0 +1,33 @@
+settings:
+  version: "6.8.1"
+
+  cl_shp: "${root_dir}/data/import/foi_nr/network-model/NetworkReferenceLines/NetworkReferenceLines.shp"
+  mp_shp: "${root_dir}/data/import/foi_nr/network-model/NetworkWaymarks/NetworkWaymarks.shp"
+  nr_region_shp: "${root_dir}/data/import/foi_nr/organisational-boundaries/Region/Region.shp"
+  os_place_shp: "${root_dir}/data/import/foi_os/populated_places/gb_populated_places.shp"
+  os_admin_area_shp: "${root_dir}/data/import/foi_os/admin_boundaries/gb_admin_areas.shp"
+  elr_xlsx: "${root_dir}/data/import/geofurlong_elr.xlsx"
+
+  data_dir: "${root_dir}/data"
+  cl_db: "${root_dir}/data/staging/geofurlong_centreline.sqlite"
+  mp_db: "${root_dir}/data/staging/geofurlong_milepost.sqlite"
+  calib_db: "${root_dir}/data/staging/geofurlong_calibration.sqlite"
+  elr_csv: "${root_dir}/data/staging/geofurlong_elr.csv"
+  nr_region_db: "${root_dir}/data/staging/geofurlong_nr_region.sqlite"
+  os_place_db: "${root_dir}/data/staging/geofurlong_os_place.sqlite"
+  os_admin_area_db: "${root_dir}/data/staging/geofurlong_os_admin_area.sqlite"
+
+  production_db: "${root_dir}/data/production/geofurlong.sqlite"
+
+  precompute_dir: "${root_dir}/data/precomputed"
+
+  gazetteer_dir: "${root_dir}/data/gazetteer"
+  gazetteer_db: "${root_dir}/data/staging/geofurlong_gazetteer_0022y.sqlite"
+  gazetteer_aggregated_db: "${root_dir}/data/gazetteer/geofurlong_gazetteer_aggregated.sqlite"
+
+  skip_elr_sql: 'WHERE elr NOT IN ("CLT1", "CLT2")' # CLT1/2 are in France, thus out with the bounds of EPSG:27700.
+
+  cache_fn: "${root_dir}/data/cache/geofurlong_cache.gob"
+
+  scripts_dir: "${root_dir}/scripts"
+  

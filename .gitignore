@@ -1,0 +1,12 @@
+# Working / Data files
+data/
+*.log
+*.sqlite
+*.csv
+
+
+# Development files / directories
+__pycache__
+.pytest_cache
+.vscode/
+pyproject.toml
