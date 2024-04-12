@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestInterpolate2D(t *testing.T) {
+func TestInterpolateSegment(t *testing.T) {
 	cases := []struct {
 		ty       int
 		c        CalibrationSegment
