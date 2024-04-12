@@ -1,20 +1,20 @@
 BEGIN;
 
-CREATE TABLE gazetteer_grouping (group_id INTEGER, group_name TEXT NOT NULL, PRIMARY KEY (group_id));
+CREATE TABLE gazetteer_grouping (group_id INTEGER, group_name VARCHAR NOT NULL, PRIMARY KEY (group_id));
 INSERT INTO gazetteer_grouping (group_id, group_name) VALUES (1, 'nr_region');
 INSERT INTO gazetteer_grouping (group_id, group_name) VALUES (2, 'country_admin_area'); -- Country and admin area name railway point is within.
 INSERT INTO gazetteer_grouping (group_id, group_name) VALUES (3, 'district_place');  -- District and place name of nearest place to railway point.
 
 
 CREATE TABLE gazetteer_aggregated (
-    elr TEXT NOT NULL, 
+    elr VARCHAR NOT NULL, 
     group_id INTEGER NOT NULL, 
     offset_from INT NOT NULL, 
     offset_to INT NOT NULL, 
     mileage_from VARCHAR NOT NULL, 
     mileage_to VARCHAR NOT NULL, 
-    value_1 TEXT NOT NULL, 
-    value_2 TEXT, 
+    value_1 VARCHAR NOT NULL, 
+    value_2 VARCHAR, 
     min_distance INT, 
     max_distance INT, 
     mean_distance INT
@@ -37,12 +37,12 @@ JOIN
 
 
 CREATE TABLE gazetteer_by_nr_region (
-    elr TEXT NOT NULL, 
+    elr VARCHAR NOT NULL, 
     offset_from INT NOT NULL, 
     offset_to INT NOT NULL, 
     mileage_from VARCHAR NOT NULL, 
     mileage_to VARCHAR NOT NULL, 
-    nr_region TEXT NOT NULL, 
+    nr_region VARCHAR NOT NULL, 
     PRIMARY KEY (elr, offset_from, offset_to)
 );
 
@@ -58,13 +58,13 @@ ORDER BY
 
 
 CREATE TABLE gazetteer_by_country_admin_area (
-    elr TEXT NOT NULL, 
+    elr VARCHAR NOT NULL, 
     offset_from INT NOT NULL, 
     offset_to INT NOT NULL, 
     mileage_from VARCHAR NOT NULL, 
     mileage_to VARCHAR NOT NULL, 
-    country TEXT NOT NULL, 
-    admin_area TEXT NOT NULL,
+    country VARCHAR NOT NULL, 
+    admin_area VARCHAR NOT NULL,
     PRIMARY KEY (elr, offset_from, offset_to)
 );
 
@@ -80,13 +80,13 @@ ORDER BY
 
 
 CREATE TABLE gazetteer_by_nearest_place (
-    elr TEXT NOT NULL, 
+    elr VARCHAR NOT NULL, 
     offset_from INT NOT NULL, 
     offset_to INT NOT NULL, 
     mileage_from VARCHAR NOT NULL, 
     mileage_to VARCHAR NOT NULL, 
-    district TEXT NOT NULL, 
-    place TEXT NOT NULL, 
+    district VARCHAR NOT NULL, 
+    place VARCHAR NOT NULL, 
     distance_min INT NOT NULL, 
     distance_max INT NOT NULL, 
     distance_mean INT NOT NULL, 
