@@ -10,10 +10,42 @@ func TestInterpolateSegment(t *testing.T) {
 		c        CalibrationSegment
 		expected float64
 	}{
-		{0, CalibrationSegment{0, 1_000, 0, 914.4, 0}, 0},
-		{625, CalibrationSegment{500, 1_000, 0, 914.4, 0}, 914.4 / 4.0},
-		{750, CalibrationSegment{500, 1_000, 0, 914.4, 0}, 914.4 / 2.0},
-		{15_000, CalibrationSegment{10_000, 20_000, 0, 1, -999}, 0.5},
+		{
+			ty: 0,
+			c: CalibrationSegment{
+				TyFrom:   0,
+				TyTo:     1_000,
+				LoFrom:   0,
+				LoTo:     914.4,
+				Accuracy: 0},
+			expected: 0},
+		{
+			ty: 625,
+			c: CalibrationSegment{
+				TyFrom:   500,
+				TyTo:     1_000,
+				LoFrom:   0,
+				LoTo:     914.4,
+				Accuracy: 0},
+			expected: 914.4 / 4.0},
+		{
+			ty: 750,
+			c: CalibrationSegment{
+				TyFrom:   500,
+				TyTo:     1_000,
+				LoFrom:   0,
+				LoTo:     914.4,
+				Accuracy: 0},
+			expected: 914.4 / 2.0},
+		{
+			ty: 15_000,
+			c: CalibrationSegment{
+				TyFrom:   10_000,
+				TyTo:     20_000,
+				LoFrom:   0,
+				LoTo:     1,
+				Accuracy: -999},
+			expected: 0.5},
 	}
 
 	for _, c := range cases {
