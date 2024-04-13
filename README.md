@@ -22,7 +22,7 @@ Recording of geographic position is [precise](https://en.wikipedia.org/wiki/Accu
 
 Linear accuracy is defined as the geographic measured distance versus the reported distance, both in metres. For example, if the measured distance between neighbouring quarter mileposts along an ELR centre-line was `403.836 metres`, the accuracy would be calculated as `+1.5 metres` (as a quarter mile being 440 yards, or `402.336 metres`). This is an example of what is commonly referred to as a _long quarter mile_. The linear accuracy, computed to maximum available decimal places, is used to produce the linear calibration statistics per ELR; it is subsequently truncated to a whole number for presentation in other data sets.
 
-The computed geographic position for a defined ELR and mileage may not be accurate in all instances. In a number of locations, the position may be incorrect by a significant linear distance, particularly on closed or partially-closed lines. The manually-maintained _ELR_ dataset (via the `Remarks` column) identifies ELRs which exhibit potentially poor accuracy.
+The computed geographic position for a defined ELR and mileage may not be accurate in all instances. In a number of locations, the position may be incorrect by a significant linear distance, particularly on closed or partially-closed lines. The manually-maintained _ELR_ dataset (via the `remarks` column) identifies ELRs which exhibit potentially poor accuracy.
 
 The build process computes the estimated linear position for a given mileage on an ELR by calibrating against mileposts on that ELR. For each ELR, calibration in undertaken using the virtual centre-line geometry, reported start and finish mileages, combined with the milepost position and value. The computed geographic distance along the segment between mileposts are compared against the reported mileages for the mileposts and recorded in a detailed calibration statistics database. This calibration process allows an estimation of the linear accuracy to be provided when geocoding from ELR and Mileage to geographic position.
 
@@ -185,7 +185,7 @@ Within the Ordnance Survey data source, several populated places are present whi
 
 For most applications, end-users will likely utilise the files contained in the `data/precomputed` or `data/gazetteer` directories, as these contain pre-computed geographic information for regular points (at multiple resolutions) along each ELR. These ready-made tabular files provide simple lookup access to geographic positions for ELRs and mileages without the need for any complex computation.
 
-In addition to these files, developers may use the database in `data/production`, combined with the Go library files in `pkg/geocode` for custom applications to compute the geographic position of an ELR and mileage combination dynamically. This library exposes function to establish a `point` for a single mileage or `substring` for a mileage range. Client libraries for other programming languages are in progress to integrate with the database in `data/production`.
+In addition to these files, developers may use the database in `data/production`, combined with the Go library files in `pkg/geocode` for custom applications to compute the geographic position of an ELR and mileage combination dynamically. This library exposes function to establish a `point` for a single mileage and `substring` for a mileage range. Client libraries for other programming languages are in progress to integrate with the database in `data/production`.
 
 ### Key Definitions
 
@@ -223,7 +223,11 @@ GeoFurlong is built upon a framework of open-source software applications and li
 
 - Publish production database (SQLite format).
 - Publish geospatial databases at varying yardage intervals for `precomputed` and `gazetteer` tables (GeoPackage format).
-- Improved linear positioning accuracy could be obtained by utilising more recent surveyed position of mileposts. Milepost positions are regularly surveyed as a matter of course during topographic survey on the network. The process of collating and overriding milepost positions to improve the calibration accuracy is currently not within the scope of this project.
+- Publish example mapping for multi-disciplinary and environmental datasets.
+- Publish example reverse-geocoded datasets.
+- Publish example data and video footage of mobile application.
+
+Improved linear positioning accuracy could be obtained by utilising more recent surveyed position of mileposts. Milepost positions are regularly surveyed as a matter of course during topographic surveys on the network. The process of collating and overriding milepost positions to improve the calibration accuracy is currently not within the scope of this project.
 
 ### Disclaimer
 
