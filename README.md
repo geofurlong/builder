@@ -38,53 +38,53 @@ Noting the linear calibration process described above, inaccuracies in estimatin
 ### ELR Schema
 
 | Column | Description | Unit / Type | Sample |
-| ---- | ---- | ---- | --- |
-|elr|ELR|text|WCM1|
-|l_system|Linear Reporting Unit|text (M or K)|M|
-|shape_length_m|Geographic Length|metres|135756.658175|
-|total_yards_from|Mileage From|total yards (whole number)|-216|
-|total_yards_to|Mileage To|total yards (whole number)|148224|
-|route|Route|text|West Coast Main Line (WCML)|
-|section|Section|text (optional)|Carlisle to Law Jn|
-|remarks|Remarks|text (optional)||
-|quail_book|TrackMap Book|text (`;` separated)|1;4;2|
-|grouping|Grouping|text (`;` separated)|LEC1;LEC2;LEC3; ...|
-|neighbours|Neighbours|text (`;` separated)|CGJ7;CSP;ECA1;ETC; ...|
+| :--- | :--- | :--- | :--- |
+|`elr`|ELR|text|WCM1|
+|`l_system`|Linear Reporting Unit|text (M or K)|M|
+|`shape_length_m`|Geographic Length|metres|135756.658175|
+|`total_yards_from`|Mileage From|total yards (whole number)|-216|
+|`total_yards_to`|Mileage To|total yards (whole number)|148224|
+|`route`|Route|text|West Coast Main Line (WCML)|
+|`section`|Section|text (optional)|Carlisle to Law Jn|
+|`remarks`|Remarks|text (optional)||
+|`quail_book`|TrackMap Book|text (`;` separated)|1;4;2|
+|`grouping`|Grouping|text (`;` separated)|LEC1;LEC2;LEC3; ...|
+|`neighbours`|Neighbours|text (`;` separated)|CGJ7;CSP;ECA1; ...|
 
 ### Precomputed Schema
 
 | Column | Description | Unit / Type | Sample |
-| ---- | ---- | ---- | --- |
-|elr|ELR|text|ECM1|
-|total_yards|Mileage|total yards (whole number)|5654|
-|mileage|Mileage|text|3M 0374y|
-|easting|OS Easting|metres (1 decimal place)|531412.3|
-|northing|OS Northing|metres (1 decimal place)|187912.1|
-|longitude|Longitude|degrees (6 decimal places)|-0.105067|
-|latitude|Latitude|degrees (6 decimal places)|51.574767|
-|osgr|OS Grid Reference|text|TQ3141287912|
-|accuracy|Linear Accuracy|metres (whole number)|-2|
+| :--- | :--- | :--- | :--- |
+|`elr`|ELR|text|ECM1|
+|`total_yards`|Mileage|total yards (whole number)|5654|
+|`mileage`|Mileage|text|3M 0374y|
+|`easting`|OS Easting|metres (1 decimal place)|531412.3|
+|`northing`|OS Northing|metres (1 decimal place)|187912.1|
+|`longitude`|Longitude|degrees (6 decimal places)|-0.105067|
+|`latitude`|Latitude|degrees (6 decimal places)|51.574767|
+|`osgr`|OS Grid Reference|text|TQ3141287912|
+|`accuracy`|Linear Accuracy|metres (whole number)|-2|
 
 ### Gazetteer Schema
 
 | Column | Description | Unit / Type | Sample |
-| ---- | ---- | ---- | --- |
-|elr|ELR|text|ECM1|
-|total_yards|Mileage|total yards (whole number)|5654|
-|mileage|Mileage|text|3M 0374y|
-|easting|OS Easting|metres (1 decimal place)|531412.3|
-|northing|OS Northing|metres (1 decimal place)|187912.1|
-|longitude|Longitude|degrees (6 decimal places)|-0.105067|
-|latitude|Latitude|degrees (6 decimal places)|51.574767|
-|osgr|OS Grid Reference|text|TQ3141287912|
-|accuracy|Linear Accuracy|metres (whole number)|-2|
-|nr_region|Network Rail Region|text|Eastern|
-|place_name|Nearest Populated Place|text|Stroud Green|
-|district|Nearest Populated Place's District|text|Haringey|
-|county_unitary|Nearest Populated Place's County|text|Greater London|
-|distance_m|Distance to nearest Populated Place|metres (whole number)|540|
-|country|Country|text|England|
-|admin_area|Administrative Area|text|Haringey|
+| :--- | :--- | :--- | :--- |
+|`elr`|ELR|text|ECM1|
+|`total_yards`|Mileage|total yards (whole number)|5654|
+|`mileage`|Mileage|text|3M 0374y|
+|`easting`|OS Easting|metres (1 decimal place)|531412.3|
+|`northing`|OS Northing|metres (1 decimal place)|187912.1|
+|`longitude`|Longitude|degrees (6 decimal places)|-0.105067|
+|`latitude`|Latitude|degrees (6 decimal places)|51.574767|
+|`osgr`|OS Grid Reference|text|TQ3141287912|
+|`accuracy`|Linear Accuracy|metres (whole number)|-2|
+|`nr_region`|Network Rail Region|text|Eastern|
+|`place_name`|Nearest Populated Place|text|Stroud Green|
+|`district`|Nearest Populated Place's District|text|Haringey|
+|`county_unitary`|Nearest Populated Place's County|text|Greater London|
+|`distance_m`|Distance to nearest Populated Place|metres (whole number)|540|
+|`country`|Country|text|England|
+|`admin_area`|Administrative Area|text|Haringey|
 
 ### Aggregated Gazetteer
 
@@ -97,7 +97,7 @@ At the maximum resolution of 22 yards, the gazetteer table consists of over 850,
 ### Data Catalogue
 
 | Filename | Description | Record Count | File Size |
-| --- | --- | ---: | --: |
+| :--- | :--- | ---: | --: |
 | geofurlong_elr.csv | ELR master list | 1,589 | 187.2 KB |
 | geofurlong_elr_metric.csv | ELR (metric) | 19 | 92.0 B |
 | geofurlong_precomputed_0022y.csv | Geographic positions at 22 yard intervals | 884,780 | 62.4 MB |
@@ -122,19 +122,11 @@ At the maximum resolution of 22 yards, the gazetteer table consists of over 850,
 | geofurlong_calibration_full.csv | Linear calibration (full) | 44,257 | 5.4 MB |
 | geofurlong_calibration_statistics.csv | Linear calibration statistics | 1,589 | 379.3 KB |
 
-### To Do
-
-Supplementary files will be distributed to support sample client and third-party applications:
-
-- Production database (SQLite format).
-- Geospatial databases at varying yardage intervals (GeoPackage format) for `precomputed` and `gazetteer` tables.
-- Improved linear positioning accuracy could be obtained by utilising more recent surveyed position of mileposts. Milepost positions are regularly surveyed as a matter of course during topographic survey on the network. The process of collating and overriding milepost positions to improve the calibration accuracy is currently not within the scope of this project.
-
 ## Builder Technical Details
 
 ### Software Stack
 
-GeoFurlong is primarily developed in the [Go](https://go.dev/) programming language, delegating certain input and output geospatial file operations to [Python](https://www.python.org/) scripts, utilising well-proven libraries. Input data files are in ESRI [Shapefile](https://en.wikipedia.org/wiki/Shapefile) format, intermediate files as comma-separated value ([CSV](https://en.wikipedia.org/wiki/Comma-separated_values)) format, and output files predominantly as [SQLite](https://en.wikipedia.org/wiki/SQLite) databases (with geometry columns stored in well-known binary ([WKB](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry)) format).
+GeoFurlong is primarily developed in the [Go](https://go.dev/) programming language, delegating certain input and output geospatial file operations to [Python](https://www.python.org/) scripts, utilising well-proven libraries. Input data files are in ESRI [Shapefile](https://en.wikipedia.org/wiki/Shapefile) format, intermediate files as comma-separated value ([CSV](https://en.wikipedia.org/wiki/Comma-separated_values)) format, and output files predominantly as [SQLite](https://en.wikipedia.org/wiki/SQLite) databases (with geometry columns stored in well-known binary [[WKB](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry)] format).
 
 ### Process
 
@@ -150,7 +142,7 @@ GeoFurlong is primarily developed in the [Go](https://go.dev/) programming langu
 
 The Scottish Region geometry from the Network Rail data source has been identified as being invalid due to it containing a self-intersecting ring. This has been manually corrected prior to the data import phase using [QGIS](https://qgis.org/en/site/).
 
-Several populated places are present which share a common geographic position within the Ordnance Survey data source. These have been assessed manually, then removed prior to the data import phase, as noted in the table below.
+Within the Ordnance Survey data source, several populated places are present which share an exact geographic position. These have been assessed manually, then removed prior to the data import phase, as noted in the table below.
 
 | Area                          | Deleted Place     | Retained Place       |
 |:------------------------------|:------------------|:---------------------|
@@ -175,7 +167,7 @@ Several populated places are present which share a common geographic position wi
 ### Directory Structure
 
 |Directory|Contents|
-|----|----|
+| :--- | :--- |
 |`(root)`|Configuration file|
 |`cmd/builder`|Master builder program|
 |`data/cache`|Serialised cache file|
@@ -195,17 +187,17 @@ For most applications, end-users will likely utilise the files contained in the 
 
 In addition to these files, developers may use the database in `data/production`, combined with the Go library files in `pkg/geocode` for custom applications to compute the geographic position of an ELR and mileage combination dynamically. This library exposes function to establish a `point` for a single mileage or `substring` for a mileage range. Client libraries for other programming languages are in progress to integrate with the database in `data/production`.
 
-### Definitions
+### Key Definitions
 
 |Definition|Description|
-|---|---|
+| :--- | :--- |
 |ELR|Engineer's Line Reference|
 |NR|Network Rail|
 |OS|Ordnance Survey|
 
 ### Credits
 
-The project's software is built upon a framework of open-source software packages and libraries, utilising portions of geospatial datasets which have been released under permissive licences.
+GeoFurlong is built upon a framework of open-source software applications and libraries, utilising portions of geospatial datasets which have been released under permissive licences.
 
 ### Data
 
@@ -217,7 +209,7 @@ The project's software is built upon a framework of open-source software package
 
 - [Go](https://go.dev/) programming language.
 - [GDAL](https://gdal.org/) vector translator library.
-- [SQLite](https://sqlite.org/) database library and tools.
+- [SQLite](https://sqlite.org/) database engine library.
 - [orb](https://github.com/paulmach/orb) 2D geometry library for Go.
 - [go-sqlite3](https://github.com/mattn/go-sqlite3) SQLite database library for Go.
 - [go-proj](https://github.com/twpayne/go-proj) co-ordinate transformation library for Go.
@@ -225,8 +217,13 @@ The project's software is built upon a framework of open-source software package
 - [pandas](https://github.com/pandas-dev/pandas) data analysis library for Python.
 - [GeoPandas](https://github.com/geopandas/) and [Shapely](https://github.com/shapely/shapely) geospatial data manipulation libraries for Python.
 - Reference has been made to a Python [library](https://gitlab.com/jbrobertson/os-grid-reference/) for manipulation of OS Grid References.
-- [QGIS](https://qgis.org/en/site/) Geographical Information System.
-- [VisiData](https://www.visidata.org/) interactive tabular data analysis tool.
+- [QGIS](https://qgis.org/en/site/) Geographic Information System.
+
+### To Do
+
+- Publish production database (SQLite format).
+- Publish geospatial databases at varying yardage intervals for `precomputed` and `gazetteer` tables (GeoPackage format).
+- Improved linear positioning accuracy could be obtained by utilising more recent surveyed position of mileposts. Milepost positions are regularly surveyed as a matter of course during topographic survey on the network. The process of collating and overriding milepost positions to improve the calibration accuracy is currently not within the scope of this project.
 
 ### Disclaimer
 
