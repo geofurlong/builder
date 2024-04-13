@@ -1,8 +1,6 @@
 # SPDX-License-Identifier: MIT
 
-Project:      GeoFurlong
-Description:  Geospatial tools for main line railways in Britain
-Author:       Alan Morrison - geofurlong at outlook dot com
+The MIT License (MIT)
 
 Copyright (c) 2015-2024, Alan Morrison
 
