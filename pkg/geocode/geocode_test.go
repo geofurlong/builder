@@ -8,7 +8,7 @@ import (
 	"github.com/paulmach/orb/encoding/wkt"
 )
 
-func TestCalibrationSegment(t *testing.T) {
+func TestFindCalibrationSegment(t *testing.T) {
 	cases := []struct {
 		data     []CalibrationSegment
 		tyTarget int
