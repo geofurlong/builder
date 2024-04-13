@@ -18,17 +18,23 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
 
-      - name: Install Go dependencies
+      - name: Install Go dependencies [library]
         run: |
           cd pkg/geocode
           go mod download
+
+      - name: Install Go dependencies [builder]
+        run: |
           cd cmd/builder
           go mod download
 
-      - name: Run Go tests
+      - name: Run Go tests [library]
         run: |
           cd pkg/geocode
           go test ./...
+
+      - name: Run Go tests [builder]
+        run: |
           cd cmd/builder
           go test ./...
 
