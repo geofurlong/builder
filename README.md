@@ -90,9 +90,9 @@ Noting the linear calibration process described above, inaccuracies in estimatin
 
 At the maximum resolution of 22 yards, the gazetteer table consists of over 850,000 entries. An alternative method of establishing the geographic context of the railway positions is made available by grouping the following attributes into a mileage range: Network Rail Region, Government Administrative Area, and nearest Populated Place (and its corresponding County / District) in the following tables, each which have a significantly reduced number of entries:
 
-- `geofurlong_gazetteer_by_nr_region.csv`
-- `geofurlong_gazetteer_by_country_admin_area.csv`
-- `geoofurlong_gazetteer_by_nearest_place.csv`
+- geofurlong_gazetteer_by_nr_region.csv
+- geofurlong_gazetteer_by_country_admin_area.csv
+- geofurlong_gazetteer_by_nearest_place.csv
 
 ### Data Catalogue
 
@@ -133,7 +133,7 @@ GeoFurlong is primarily developed in the [Go](https://go.dev/) programming langu
 - Manual validation / preparation (see below).
 - Conversion of source geospatial to optimised SQLite format: ELRs, Mileposts, Network Rail Regions, Ordnance Survey Administrative Areas, and Ordnance Survey Populated Places.
 - Calibrate mileposts along each ELR centre-line geometry to maximise linear positional accuracy.
-- Build optimised production database of ELRs and associate linear calibration.
+- Build optimised production database of ELRs and associated linear calibration.
 - Precompute geographic positions for all ELRs at multiple yardage intervals: 22, 110, 220, 440, 1760 (one mile), and 8800 (5 miles).
 - Build a gazetteer of railway positions combining Network Railway Region, Ordnance Survey Administrative Area and Populated Place datasets at multiple yardage intervals: 22, 110, 220, 440, 1760 (one mile), and 8800 (5 miles).
 - Build an aggregated gazetteer, based on 22 yard intervals.
