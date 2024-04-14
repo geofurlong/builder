@@ -328,9 +328,7 @@ JOIN
 	place_name pn ON g.place_name_id = pn.id;
 
 
--- Create helper tables to improve web site markdown generation.
--- Delimiter of ";" used to avoid data transfer ambiguity, as later exported to CSV.
-
+-- Helper tables - delimiter of ";" used to avoid CSV data transfer ambiguity.
 CREATE TABLE elr_by_admin_area AS
 SELECT country, admin_area, GROUP_CONCAT(elr, ";") AS elrs
 FROM (
