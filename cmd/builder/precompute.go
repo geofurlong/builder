@@ -57,12 +57,18 @@ func precompute(cfg GeofurlongConfig, resolution int) { //
 			lonLat := geocode.Reproject(pt.Point, pj)
 
 			// 6 decimal places for lat/lon is approximately 0.11 metre precision,
-			// notionally equivalent to the 0.1 metre precision of the OSGB easting/northing.
+			// notionally equivalent to the 0.1 metre precision of the OSGB Easting / Northing.
 			// Linear accuracy is rounded to nearest metre.
 			buffer.WriteString(fmt.Sprintf("%s,%d,%s,%.1f,%.1f,%.6f,%.6f,%s,%d\n",
-				elr, ty, geocode.FmtTotalYards(ty, prop.Metric),
-				pt.Point[0], pt.Point[1],
-				lonLat.X(), lonLat.Y(), osgr, int(pt.Accuracy+0.5)))
+				elr,
+				ty,
+				geocode.FmtTotalYards(ty, prop.Metric),
+				pt.Point[0],
+				pt.Point[1],
+				lonLat.X(),
+				lonLat.Y(),
+				osgr,
+				int(pt.Accuracy+0.5)))
 
 			count++
 			if count >= BatchBufferLen {
