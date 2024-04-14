@@ -166,6 +166,8 @@ Within the Ordnance Survey data source, several populated places are present whi
 
 ### Directory Structure
 
+The builder process reads the environment variable `GEOFURLONG_ROOT` to define the root directory.
+
 |Directory|Contents|
 | :--- | :--- |
 |`(root)`|Configuration file|
