@@ -18,6 +18,7 @@ func runPython(cfg GeofurlongConfig, scriptFn string, params string) {
 	err = os.Chdir(cfg["scripts_dir"])
 	geocode.Check(err)
 
+	// Ensure the working directory is reset after the function completes.
 	defer func() {
 		err = os.Chdir(originalDir)
 		geocode.Check(err)
