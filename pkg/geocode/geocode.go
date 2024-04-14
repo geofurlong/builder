@@ -112,7 +112,10 @@ func (gc *Geocoder) Point(elr string, ty int) (RailwayPoint, error) {
 	}
 
 	distance := interpolateSegment(ty, elrSegment.CalibrationSegments[0])
-	return RailwayPoint{pointAtDistanceAlongLine(distance, elrSegment.Geometry), elrSegment.CalibrationSegments[0].Accuracy}, err
+	return RailwayPoint{
+			Point:    pointAtDistanceAlongLine(distance, elrSegment.Geometry),
+			Accuracy: elrSegment.CalibrationSegments[0].Accuracy},
+		nil
 }
 
 // Substring returns a portion of the ELR linestring based on the start and end distances (as total yards),
@@ -138,7 +141,7 @@ func (gc *Geocoder) Substring(elr string, tyFrom, tyTo int) (orb.LineString, err
 	}
 	distanceTo := interpolateSegment(tyTo, elrSegmentTo.CalibrationSegments[0])
 
-	pts := make([]orb.Point, 0, 32) // Notional initial capacit.
+	pts := make([]orb.Point, 0, 32) // Notional initial capacity.
 	startPt := pointAtDistanceAlongLine(distanceFrom, elrSegmentFrom.Geometry)
 	pts = append(pts, startPt)
 
@@ -152,7 +155,7 @@ func (gc *Geocoder) Substring(elr string, tyFrom, tyTo int) (orb.LineString, err
 		currentDistance += planar.Distance(elrSegmentFrom.Geometry[i], elrSegmentFrom.Geometry[i+1])
 	}
 
-	endPt := pointAtDistanceAlongLine(distanceTo, elrSegmentFrom.Geometry) // Geometry To/From are the same ELR.
+	endPt := pointAtDistanceAlongLine(distanceTo, elrSegmentFrom.Geometry) // Noting that Geometry To/From are the same ELR.
 	pts = append(pts, endPt)
 	return pts, err
 }
@@ -215,7 +218,7 @@ func (gc *Geocoder) loadELRs() error {
 	return nil
 }
 
-// buildCache reads the production database and builds the ELR cache.
+// buildCache reads the production database and builds the ELR cache, returning true if successful.
 func (gc *Geocoder) buildCache() bool {
 	prodDb, err := sql.Open("sqlite3", fmt.Sprintf("%s?mode=ro", gc.config.ProductionDbFn))
 	Check(err)
@@ -258,7 +261,7 @@ func (gc *Geocoder) buildCache() bool {
 	return true
 }
 
-// serialise writes the ELR cache to disk.
+// serialiseCache writes the ELR cache to disk, returning true if successful.
 func (gc *Geocoder) serialiseCache() bool {
 	file, err := os.Create(gc.config.CacheFn)
 	Check(err)
@@ -271,7 +274,7 @@ func (gc *Geocoder) serialiseCache() bool {
 	return true
 }
 
-// deserialise reads the ELR cache from disk.
+// deserialise reads the ELR cache from disk, returning true if successful.
 func (gc *Geocoder) deserialiseCache() bool {
 	file, err := os.Open(gc.config.CacheFn)
 	Check(err)
