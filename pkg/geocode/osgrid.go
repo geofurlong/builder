@@ -75,17 +75,17 @@ func OSGRToPoint(osgr string) (orb.Point, error) {
 	}
 
 	ixLetter1 := strings.Index(TileLetterOrder, string(prefix[0]))
-	origE := PrimaryTileSize*(ixLetter1%5) + GridOriginSWEasting
-	origN := PrimaryTileSize*(ixLetter1/5) + GridOriginSWNorthing
+	originX := PrimaryTileSize*(ixLetter1%5) + GridOriginSWEasting
+	originY := PrimaryTileSize*(ixLetter1/5) + GridOriginSWNorthing
 
 	ixLetter2 := strings.Index(TileLetterOrder, string(prefix[1]))
-	origE += SecondaryTileSize * (ixLetter2 % 5)
-	origN += SecondaryTileSize * (ixLetter2 / 5)
+	originX += SecondaryTileSize * (ixLetter2 % 5)
+	originY += SecondaryTileSize * (ixLetter2 / 5)
 
 	depth := (len(osgr) - 2) / 2
 	cellSize := SecondaryTileSize / int(math.Pow10(depth))
-	origE += n1 * cellSize
-	origN += n2 * cellSize
+	originX += n1 * cellSize
+	originY += n2 * cellSize
 
-	return orb.Point{float64(origE), float64(origN)}, nil
+	return orb.Point{float64(originX), float64(originY)}, nil
 }
