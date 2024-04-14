@@ -10,9 +10,18 @@ func TestCalibrationPointsToSegments(t *testing.T) {
 	const Epsilon = 1e-6
 
 	calibrationPoints := []geocode.CalibrationPoint{
-		{Ty: 100, LoMetres: 1_000, LoNormalised: 444},
-		{Ty: 200, LoMetres: 1_105, LoNormalised: 555},
-		{Ty: 8_888, LoMetres: 9_999, LoNormalised: 666},
+		{
+			Ty:           100,
+			LoMetres:     1_000,
+			LoNormalised: 444},
+		{
+			Ty:           200,
+			LoMetres:     1_105,
+			LoNormalised: 555},
+		{
+			Ty:           8_888,
+			LoMetres:     9_999,
+			LoNormalised: 666},
 	}
 
 	calibrationSegments := calibrationPointsToSegments(calibrationPoints)
