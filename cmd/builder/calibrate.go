@@ -36,7 +36,7 @@ func calibrationPointsToSegments(calibPoints []geocode.CalibrationPoint) []geoco
 		accuracy := lenMeasured - lenReported
 		qmNormalised := (geocode.QuarterMileYards / float64(next.Ty-current.Ty)) * (lenMeasured / geocode.YardsToMetres)
 
-		multi := geocode.CalibrationSegmentNormalised{
+		segment := geocode.CalibrationSegmentNormalised{
 			TyFrom:           current.Ty,
 			TyTo:             next.Ty,
 			LoMetresFrom:     current.LoMetres,
@@ -47,7 +47,7 @@ func calibrationPointsToSegments(calibPoints []geocode.CalibrationPoint) []geoco
 			QmNormalised:     qmNormalised,
 		}
 
-		calibSegments = append(calibSegments, multi)
+		calibSegments = append(calibSegments, segment)
 	}
 
 	return calibSegments
