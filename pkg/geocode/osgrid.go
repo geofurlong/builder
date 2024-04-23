@@ -22,6 +22,9 @@ const (
 
 	// Order of the lettered OSGR tiles.
 	TileLetterOrder = "VWXYZQRSTULMNOPFGHJKABCDE"
+
+	// Number of tiles per row in the lettered OSGR grid.
+	TilesPerRow = 5
 )
 
 // letterOrigin represents an OSGR tile letter and associated tile origin co-ordinates.
@@ -30,17 +33,17 @@ type letterOrigin struct {
 	origin orb.Point
 }
 
-// tileAndOrigin returns the OSGR tile letter and associated tile origin co-ordinates.
+// tileAndOrigin returns the OSGR tile letter and associated tile origin co-ordinates for an Easting/Northing point.
 func tileAndOrigin(pt orb.Point, tileSize int) letterOrigin {
 	tilePosX := math.Floor(pt.X() / float64(tileSize))
 	tilePosY := math.Floor(pt.Y() / float64(tileSize))
-	letter := string(TileLetterOrder[int(tilePosX)+5*int(tilePosY)])
+	letter := string(TileLetterOrder[int(tilePosX)+TilesPerRow*int(tilePosY)])
 	originX := tilePosX * float64(tileSize)
 	originY := tilePosY * float64(tileSize)
 	return letterOrigin{letter, orb.Point{originX, originY}}
 }
 
-// tile100kmAndOrigin returns the OSGR tile letters and origin co-ordinates.
+// tile100kmAndOrigin returns the OSGR tile letters and origin co-ordinates for an Easting/Northing point.
 func tile100kmAndOrigin(pt orb.Point) letterOrigin {
 	lo1 := tileAndOrigin(orb.Point{pt.X() - GridOriginSWEasting, pt.Y() - GridOriginSWNorthing}, PrimaryTileSize)
 	lo2 := tileAndOrigin(orb.Point{pt.X() - lo1.origin.X() - GridOriginSWEasting, pt.Y() - lo1.origin.Y() - GridOriginSWNorthing}, SecondaryTileSize)
@@ -75,12 +78,12 @@ func OSGRToPoint(osgr string) (orb.Point, error) {
 	}
 
 	ixLetter1 := strings.Index(TileLetterOrder, string(prefix[0]))
-	originX := PrimaryTileSize*(ixLetter1%5) + GridOriginSWEasting
-	originY := PrimaryTileSize*(ixLetter1/5) + GridOriginSWNorthing
+	originX := PrimaryTileSize*(ixLetter1%TilesPerRow) + GridOriginSWEasting
+	originY := PrimaryTileSize*(ixLetter1/TilesPerRow) + GridOriginSWNorthing
 
 	ixLetter2 := strings.Index(TileLetterOrder, string(prefix[1]))
-	originX += SecondaryTileSize * (ixLetter2 % 5)
-	originY += SecondaryTileSize * (ixLetter2 / 5)
+	originX += SecondaryTileSize * (ixLetter2 % TilesPerRow)
+	originY += SecondaryTileSize * (ixLetter2 / TilesPerRow)
 
 	depth := (len(osgr) - 2) / 2
 	cellSize := SecondaryTileSize / int(math.Pow10(depth))
