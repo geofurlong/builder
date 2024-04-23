@@ -6,13 +6,13 @@ import (
 
 func TestInterpolateSegment(t *testing.T) {
 	cases := []struct {
-		ty       int
-		c        CalibrationSegment
-		expected float64
+		ty          int
+		calibration CalibrationSegment
+		expected    float64
 	}{
 		{
 			ty: 0,
-			c: CalibrationSegment{
+			calibration: CalibrationSegment{
 				TyFrom:   0,
 				TyTo:     1_000,
 				LoFrom:   0,
@@ -21,7 +21,7 @@ func TestInterpolateSegment(t *testing.T) {
 			expected: 0},
 		{
 			ty: 625,
-			c: CalibrationSegment{
+			calibration: CalibrationSegment{
 				TyFrom:   500,
 				TyTo:     1_000,
 				LoFrom:   0,
@@ -30,7 +30,7 @@ func TestInterpolateSegment(t *testing.T) {
 			expected: 914.4 / 4.0},
 		{
 			ty: 750,
-			c: CalibrationSegment{
+			calibration: CalibrationSegment{
 				TyFrom:   500,
 				TyTo:     1_000,
 				LoFrom:   0,
@@ -39,7 +39,7 @@ func TestInterpolateSegment(t *testing.T) {
 			expected: 914.4 / 2.0},
 		{
 			ty: 15_000,
-			c: CalibrationSegment{
+			calibration: CalibrationSegment{
 				TyFrom:   10_000,
 				TyTo:     20_000,
 				LoFrom:   0,
@@ -49,7 +49,7 @@ func TestInterpolateSegment(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		i := interpolateSegment(c.ty, c.c)
+		i := interpolateSegment(c.ty, c.calibration)
 		if i != c.expected {
 			t.Log("error, should be:", c.expected, "but got:", i)
 			t.Fail()
