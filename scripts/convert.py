@@ -76,7 +76,7 @@ def convert_centrelines() -> None:
     centrelines["total_yards_to"] = centrelines["l_m_to"].apply(miles_yards_to_total_yards)
 
     # Remove obsolete columns.
-    centrelines.drop(["l_m_from", "l_m_to"], axis=1, inplace=True)
+    centrelines = centrelines.drop(["l_m_from", "l_m_to"], axis=1)
 
     # Export to SQLite format.
     centrelines.to_file(CONFIG["cl_db"], driver="SQLite", layer="cl", engine="pyogrio")  # type: ignore
@@ -116,7 +116,7 @@ def convert_mileposts() -> None:
     mileposts["total_yards_from"] = mileposts.apply(lambda x: to_total_yards(x.m_system, x.waymark_va), axis=1)
 
     # Remove obsolete columns.
-    mileposts.drop(["m_system", "waymark_va"], axis=1, inplace=True)
+    mileposts = mileposts.drop(["m_system", "waymark_va"], axis=1)
 
     # Export to SQLite format.
     mileposts.to_file(CONFIG["mp_db"], driver="SQLite", layer="mp", engine="pyogrio")  # type: ignore
@@ -135,22 +135,20 @@ def convert_nr_regions() -> None:
     nr_regions = gpd.read_file(CONFIG["nr_region_shp"], encoding="utf8", engine="pyogrio")
 
     # Remove unwanted columns.
-    nr_regions.drop(
+    nr_regions = nr_regions.drop(
         [
             "OBJECTID",
             "SHAPE_Leng",
             "SHAPE_Area",
         ],
         axis=1,
-        inplace=True,
     )
 
     # Rename NR Region column to avoid a naming clash with OS Region column when spatially joining.
-    nr_regions.rename(
+    nr_regions = nr_regions.rename(
         columns={
             "REGION_NAM": "nr_region",
         },
-        inplace=True,
     )
 
     # Export to SQLite format.
@@ -164,13 +162,12 @@ def convert_os_places() -> None:
 
     # Remove unwanted columns. Country or Region columns are not wanted as these are established
     # from the point in polygon spatial join via the Administrative Area dataset.
-    os_places.drop(
+    os_places = os_places.drop(
         ["LOCAL_TYPE", "POSTCODE_D", "REGION", "COUNTRY"],
         axis=1,
-        inplace=True,
     )
 
-    os_places.rename(
+    os_places = os_places.rename(
         columns={
             "NAME1": "place_name",
             "NAME1_LANG": "name_lang",
@@ -179,7 +176,6 @@ def convert_os_places() -> None:
             "DISTRICT_B": "district",
             "COUNTY_UNI": "county_unitary",
         },
-        inplace=True,
     )
 
     # Set OS Populated Place name to ENG variation, i.e. where Welsh or Gaelic are
@@ -190,7 +186,7 @@ def convert_os_places() -> None:
     )
 
     # Remove obsolete columns.
-    os_places.drop(["name_lang", "place_name_alt", "name_alt_lang"], axis=1, inplace=True)
+    os_places = os_places.drop(["name_lang", "place_name_alt", "name_alt_lang"], axis=1)
 
     # Export to SQLite format.
     os_places.to_file(CONFIG["os_place_db"], driver="SQLite", layer="os_place", engine="pyogrio")  # type: ignore
@@ -202,14 +198,13 @@ def convert_os_admin_areas() -> None:
     os_admin_areas = gpd.read_file(CONFIG["os_admin_area_shp"], encoding="utf8", engine="pyogrio")
 
     # Remove unwanted columns.
-    os_admin_areas.drop(["ID_0", "ID_1", "ID_2"], axis=1, inplace=True)
+    os_admin_areas = os_admin_areas.drop(["ID_0", "ID_1", "ID_2"], axis=1)
 
-    os_admin_areas.rename(
+    os_admin_areas = os_admin_areas.rename(
         columns={
             "NAME_1": "country",
             "NAME_2": "admin_area",
         },
-        inplace=True,
     )
 
     # Export to SQLite format.
