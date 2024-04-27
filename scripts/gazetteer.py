@@ -31,7 +31,7 @@ def build_csv(rail_points_fn: str, out_csv_fn: str) -> None:
     # so deduplicate, noting that the deleted row(s) will be arbitrary and is a relatively slow operation.
     logging.info("Removing duplicate spatial join rows")
     gdf_rail_nr = gdf_rail_nr.groupby(level=0).first()
-    gdf_rail_nr.drop(["index_right"], axis=1, inplace=True)
+    gdf_rail_nr = gdf_rail_nr.drop(["index_right"], axis=1)
 
     logging.info("Loading OS Populated Places")
     places = gpd.read_file(CONFIG["os_place_db"], encoding="utf8", engine="pyogrio")
@@ -41,7 +41,7 @@ def build_csv(rail_points_fn: str, out_csv_fn: str) -> None:
     gdf_rail_nr_os = gdf_rail_nr.sjoin_nearest(places, distance_col="distance_m")
     # Round distance from railway point to nearest Populated Place down to nearest metre.
     gdf_rail_nr_os["distance_m"] = gdf_rail_nr_os["distance_m"].astype("i8")
-    gdf_rail_nr_os.drop(columns=["index_right"], inplace=True)
+    gdf_rail_nr_os = gdf_rail_nr_os.drop(columns=["index_right"])
 
     logging.info("Loading OS Administrative Area boundaries")
     admin_areas = gpd.read_file(CONFIG["os_admin_area_db"], encoding="utf8", engine="pyogrio")
@@ -52,7 +52,7 @@ def build_csv(rail_points_fn: str, out_csv_fn: str) -> None:
 
     # Final output contains railway, NR Region, Populated Place, and Administrative Area.
     logging.info("Sorting gazetteer by ELR and mileage")
-    master.sort_values(["elr", "total_yards"], inplace=True)
+    master = master.sort_values(["elr", "total_yards"])
 
     # Export gazetteer to CSV.
     logging.info("Saving gazetteer as CSV")
