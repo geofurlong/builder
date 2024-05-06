@@ -1,4 +1,4 @@
-// Reprojecting functions Easting / Northing points to and from Longitude / Latitude points.
+// Reprojecting functions for Easting / Northing points to and from Longitude / Latitude points.
 
 package geocode
 
@@ -7,9 +7,17 @@ import (
 	"github.com/twpayne/go-proj/v10"
 )
 
+const (
+	// Ordnance Survey National Grid (OSGB36) Co-ordinate Reference System (CRS).
+	ProjectedCRS = "EPSG:27700"
+
+	// World Geodetic System 1984 (WGS84) Co-ordinate Reference System (CRS).
+	GeographicCRS = "EPSG:4326"
+)
+
 // OSGBtoLongLat returns a pointer to the transformer from projected OSGB36 (EPSG:27700) to geographic Longitude / Latitude (EPSG:4326).
 func OSGBtoLongLat() *proj.PJ {
-	pj, err := proj.NewCRSToCRS("EPSG:27700", "EPSG:4326", nil)
+	pj, err := proj.NewCRSToCRS(ProjectedCRS, GeographicCRS, nil)
 	Check(err)
 
 	return pj
@@ -27,7 +35,7 @@ func Reproject(point orb.Point, pj *proj.PJ) orb.Point {
 // ReprojectMulti takes a slice of projected Easting / Northing points and returns the corresponding Longitude / Latitude points slice.
 func ReprojectMulti(points []orb.Point) []orb.Point {
 	latLons := make([]orb.Point, len(points))
-	pj, err := proj.NewCRSToCRS("EPSG:27700", "EPSG:4326", nil)
+	pj, err := proj.NewCRSToCRS(ProjectedCRS, GeographicCRS, nil)
 	Check(err)
 
 	for i, point := range points {
