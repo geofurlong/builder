@@ -99,6 +99,18 @@ func TestExplodeTotalYards(t *testing.T) {
 			expectedYards: 1,
 		},
 		{
+			// Large total yards.
+			totalYards:    17_601,
+			expectedMiles: 10,
+			expectedYards: 1,
+		},
+		{
+			// Very large total yards.
+			totalYards:    176_001,
+			expectedMiles: 100,
+			expectedYards: 1,
+		},
+		{
 			// Negative total yards 1.
 			totalYards:    -1,
 			expectedMiles: 0,
@@ -122,18 +134,6 @@ func TestExplodeTotalYards(t *testing.T) {
 			expectedMiles: 0,
 			expectedYards: -2_884,
 		},
-		{
-			// Large total yards.
-			totalYards:    17_601,
-			expectedMiles: 10,
-			expectedYards: 1,
-		},
-		{
-			// Very large total yards.
-			totalYards:    176_001,
-			expectedMiles: 100,
-			expectedYards: 1,
-		},
 	}
 
 	for _, tt := range tests {
@@ -152,14 +152,6 @@ func TestBuildTotalYards(t *testing.T) {
 		yards              int
 		expectedTotalYards int
 	}{
-		{
-			miles:              0,
-			yards:              -2_884,
-			expectedTotalYards: -2_884}, // ELR HCS: known to be erronous.
-		{
-			miles:              0,
-			yards:              -9,
-			expectedTotalYards: -9},
 		{
 			miles:              0,
 			yards:              0,
@@ -188,6 +180,16 @@ func TestBuildTotalYards(t *testing.T) {
 			miles:              100,
 			yards:              1_759,
 			expectedTotalYards: 177_759},
+		{
+			// Negative total yards.
+			miles:              0,
+			yards:              -9,
+			expectedTotalYards: -9},
+		{
+			// Largest negative total yards (ELR HCS: known to be erronous).
+			miles:              0,
+			yards:              -2_884,
+			expectedTotalYards: -2_884},
 	}
 
 	for _, c := range cases {
@@ -204,8 +206,12 @@ func TestMetresToMiles(t *testing.T) {
 		expectedString string
 	}{
 		{
-			metres:         1_609.344 * 0,
+			metres:         0,
 			expectedString: "0.000 miles"},
+		{
+			// 1 km
+			metres:         1_000,
+			expectedString: "0.621 miles"},
 		{
 			metres:         1_609.344 * 1,
 			expectedString: "1.000 miles"},
@@ -218,6 +224,10 @@ func TestMetresToMiles(t *testing.T) {
 		{
 			metres:         1_609.344 * 53,
 			expectedString: "53.000 miles"},
+		{
+			// 100 km
+			metres:         1_000 * 100,
+			expectedString: "62.137 miles"},
 	}
 
 	for _, c := range cases {
@@ -255,6 +265,11 @@ func TestFmtTotalYards(t *testing.T) {
 			requestedTY:    1_760*35 + 880,
 			metric:         false,
 			expectedString: "35M 0880y"},
+		{
+			// Highest mileage on network: MLN4 326M 1208y
+			requestedTY:    1_760*326 + 1208,
+			metric:         false,
+			expectedString: "326M 1208y"},
 
 		// Non-metric, negative mileages.
 		{
@@ -262,17 +277,20 @@ func TestFmtTotalYards(t *testing.T) {
 			metric:         false,
 			expectedString: "0M -001y"},
 		{
+			// ELR HCS: known to be erronous.
 			requestedTY:    -2_884,
 			metric:         false,
-			expectedString: "0M -2884y"}, // ELR HCS: known to be erronous.
+			expectedString: "0M -2884y"},
 		{
+			// ELR CJA2.
 			requestedTY:    -1_456,
 			metric:         false,
-			expectedString: "0M -1456y"}, // ELR CJA2.
+			expectedString: "0M -1456y"},
 		{
+			// ELR LFL.
 			requestedTY:    -965,
 			metric:         false,
-			expectedString: "0M -965y"}, // ELR LFL.
+			expectedString: "0M -965y"},
 
 		// Metric, positive kilometreages.
 		{
@@ -291,6 +309,11 @@ func TestFmtTotalYards(t *testing.T) {
 			requestedTY:    1_760,
 			metric:         true,
 			expectedString: "1.609km"},
+		{
+			// Highest kilometreage on network: TRL3 109.966km
+			requestedTY:    1_760*68 + 613,
+			metric:         true,
+			expectedString: "109.996km"},
 	}
 
 	for _, c := range cases {
@@ -308,6 +331,7 @@ func TestFmtMileages(t *testing.T) {
 		metric         bool
 		expectedString string
 	}{
+		// Non-metric.
 		{
 			tyFrom:         0,
 			tyTo:           0,
@@ -344,6 +368,13 @@ func TestFmtMileages(t *testing.T) {
 			metric:         false,
 			expectedString: "35M 0880y to 35M 0880y"},
 		{
+			tyFrom:         1_760*99 + 440,
+			tyTo:           1_760*101 + 1_320,
+			metric:         false,
+			expectedString: "99M 0440y to 101M 1320y"},
+
+		// Metric.
+		{
 			tyFrom:         0,
 			tyTo:           0,
 			metric:         true,
@@ -359,15 +390,23 @@ func TestFmtMileages(t *testing.T) {
 			metric:         true,
 			expectedString: "0.914km to 1.609km"},
 		{
+			// 5,000 / 0.9144 = 5,468   6,000 / 0.9144 = 6,562
 			tyFrom:         5_468,
 			tyTo:           6_562,
 			metric:         true,
-			expectedString: "5.000km to 6.000km"}, // 5,000 / 0.9144 = 5,468   6,000 / 0.9144 = 6,562
+			expectedString: "5.000km to 6.000km"},
 		{
+			// 7,500 / 0.9144 = 8,202   9,250 / 0.9144 = 10,116
 			tyFrom:         8_202,
 			tyTo:           10_116,
 			metric:         true,
-			expectedString: "7.500km to 9.250km"}, // 7,500 / 0.9144 = 8,202   9,250 / 0.9144= 10,116
+			expectedString: "7.500km to 9.250km"},
+		{
+			// 99,250 / 0.9144 = 108,541   101,750 / 0.9144 = 111,275
+			tyFrom:         108_541,
+			tyTo:           111_275,
+			metric:         true,
+			expectedString: "99.250km to 101.750km"},
 	}
 
 	for _, c := range cases {
@@ -390,8 +429,15 @@ func TestFmtTotalYardsMetric(t *testing.T) {
 			ty:                   1_760,
 			expectedKilometreage: "1.609km"},
 		{
+			ty:                   5_468,
+			expectedKilometreage: "5.000km"},
+		{
+			ty:                   10_116,
+			expectedKilometreage: "9.250km"},
+		{
+			// 10,000 / 0.9144 = 10,936.133
 			ty:                   10_936,
-			expectedKilometreage: "10.000km"}, // 10,000 / 0.9144 = 10,936.133
+			expectedKilometreage: "10.000km"},
 		{
 			ty:                   17_600,
 			expectedKilometreage: "16.093km"},
@@ -399,11 +445,9 @@ func TestFmtTotalYardsMetric(t *testing.T) {
 			ty:                   176_000,
 			expectedKilometreage: "160.934km"},
 		{
-			ty:                   5_468,
-			expectedKilometreage: "5.000km"},
-		{
-			ty:                   10_116,
-			expectedKilometreage: "9.250km"},
+			// 109,000 / 0.9144 = 119,203.850
+			ty:                   119_204,
+			expectedKilometreage: "109.000km"},
 	}
 
 	for _, c := range cases {
