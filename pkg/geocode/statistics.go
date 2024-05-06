@@ -1,4 +1,4 @@
-// Computes statistics for a set of numbers.
+// Computes statistics for a sample of numbers.
 
 package geocode
 
@@ -7,7 +7,7 @@ import (
 	"sort"
 )
 
-// Statistics represents the combined statistics of a set of numbers.
+// Statistics represents the combined statistics of a sample of numbers.
 type Statistics struct {
 	Count  int
 	Min    float64
@@ -17,52 +17,52 @@ type Statistics struct {
 	StdDev float64
 }
 
-// calcMinMax calculates the minimum and maximum of a set of numbers.
-func calcMinMax(nums []float64) (float64, float64) {
+// calcMinMax calculates the minimum and maximum of a sample of numbers.
+func calcMinMax(samples []float64) (float64, float64) {
 	min := math.MaxFloat64
 	max := -min
 
-	for _, num := range nums {
-		if num < min {
-			min = num
+	for _, sample := range samples {
+		if sample < min {
+			min = sample
 		}
-		if num > max {
-			max = num
+		if sample > max {
+			max = sample
 		}
 	}
 
 	return min, max
 }
 
-// calcMean calculates the mean of a set of numbers.
-func calcMean(nums []float64, count int) float64 {
+// calcMean calculates the mean of a sample of numbers.
+func calcMean(samples []float64, count int) float64 {
 	sum := 0.0
 
-	for _, num := range nums {
-		sum += num
+	for _, sample := range samples {
+		sum += sample
 	}
 
 	return sum / float64(count)
 }
 
-// / calcMedian calculates the median of a set of numbers.
-func calcMedian(nums []float64, count int) float64 {
-	sort.Float64s(nums)
+// / calcMedian calculates the median of a sample of numbers.
+func calcMedian(samples []float64, count int) float64 {
+	sort.Float64s(samples)
 	middle := count / 2
 
 	if count%2 == 0 {
-		return (nums[middle-1] + nums[middle]) / 2
+		return (samples[middle-1] + samples[middle]) / 2
 	} else {
-		return nums[middle]
+		return samples[middle]
 	}
 }
 
-// calcStdDev calculates the standard deviation of a set of numbers.
-func calcStdDev(nums []float64, count int, mean float64) float64 {
+// calcStdDev calculates the standard deviation of a sample of numbers.
+func calcStdDev(samples []float64, count int, mean float64) float64 {
 	sumOfSquares := 0.0
 
-	for _, num := range nums {
-		sumOfSquares += math.Pow(num-mean, 2)
+	for _, sample := range samples {
+		sumOfSquares += math.Pow(sample-mean, 2)
 	}
 
 	// count-1 used as estimating population mean from the sample.
@@ -70,13 +70,13 @@ func calcStdDev(nums []float64, count int, mean float64) float64 {
 	return math.Sqrt(sumOfSquares / float64(count-1))
 }
 
-// Stats calculates the combined statistics of a set of numbers.
-func Stats(nums []float64) Statistics {
-	count := len(nums)
-	min, max := calcMinMax(nums)
-	mean := calcMean(nums, count)
-	median := calcMedian(nums, count)
-	stddev := calcStdDev(nums, count, mean)
+// Stats calculates the combined statistics of a sample of numbers.
+func Stats(samples []float64) Statistics {
+	count := len(samples)
+	min, max := calcMinMax(samples)
+	mean := calcMean(samples, count)
+	median := calcMedian(samples, count)
+	stddev := calcStdDev(samples, count, mean)
 
 	return Statistics{
 		Count:  count,

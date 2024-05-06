@@ -7,11 +7,11 @@ import (
 )
 
 func TestCalcMinMax(t *testing.T) {
-	numbers := []float64{1.5, 2.3, 0.8, 4.2, 3.1}
+	samples := []float64{1.5, 2.3, 0.8, 4.2, 3.1}
 	expectedMin := 0.8
 	expectedMax := 4.2
 
-	min, max := calcMinMax(numbers)
+	min, max := calcMinMax(samples)
 
 	if min != expectedMin {
 		t.Errorf("Expected min to be %f, but got %f", expectedMin, min)
@@ -22,9 +22,9 @@ func TestCalcMinMax(t *testing.T) {
 	}
 }
 func TestCalcMean(t *testing.T) {
-	numbers := []float64{1.0, 5.0, 3.0, 4.0, 2.0}
+	samples := []float64{1.0, 5.0, 3.0, 4.0, 2.0}
 	expected := 3.0
-	result := calcMean(numbers, len(numbers))
+	result := calcMean(samples, len(samples))
 	if result != expected {
 		t.Errorf("Expected %f, but got %f", expected, result)
 	}
@@ -33,19 +33,19 @@ func TestCalcMean(t *testing.T) {
 func TestCalcMedian(t *testing.T) {
 	tests := []struct {
 		name    string
-		numbers []float64
+		samples []float64
 		count   int
 		want    float64
 	}{
 		{
-			name:    "Test case 1",
-			numbers: []float64{1, 5, 4, 3, 2},
+			name:    "Odd number of samples",
+			samples: []float64{1, 5, 4, 3, 2},
 			count:   5,
 			want:    3,
 		},
 		{
-			name:    "Test case 2",
-			numbers: []float64{4, 3, 2, 1},
+			name:    "Even number of samples",
+			samples: []float64{4, 3, 2, 1},
 			count:   4,
 			want:    2.5,
 		},
@@ -53,7 +53,7 @@ func TestCalcMedian(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := calcMedian(tt.numbers, tt.count)
+			got := calcMedian(tt.samples, tt.count)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("calcMedian() = %v, want %v", got, tt.want)
 			}
