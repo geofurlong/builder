@@ -17,8 +17,8 @@ type Statistics struct {
 	StdDev float64
 }
 
-// calcMinMax calculates the minimum and maximum of a sample of numbers.
-func calcMinMax(samples []float64) (float64, float64) {
+// minMax calculates the minimum and maximum of a sample of numbers.
+func minMax(samples []float64) (float64, float64) {
 	min := math.MaxFloat64
 	max := -min
 
@@ -34,8 +34,8 @@ func calcMinMax(samples []float64) (float64, float64) {
 	return min, max
 }
 
-// calcMean calculates the mean of a sample of numbers.
-func calcMean(samples []float64, count int) float64 {
+// mean calculates the mean of a sample of numbers.
+func mean(samples []float64, count int) float64 {
 	sum := 0.0
 
 	for _, sample := range samples {
@@ -45,8 +45,8 @@ func calcMean(samples []float64, count int) float64 {
 	return sum / float64(count)
 }
 
-// / calcMedian calculates the median of a sample of numbers.
-func calcMedian(samples []float64, count int) float64 {
+// / median calculates the median of a sample of numbers.
+func median(samples []float64, count int) float64 {
 	sort.Float64s(samples)
 	middle := count / 2
 
@@ -57,8 +57,8 @@ func calcMedian(samples []float64, count int) float64 {
 	}
 }
 
-// calcStdDev calculates the standard deviation of a sample of numbers.
-func calcStdDev(samples []float64, count int, mean float64) float64 {
+// stdDev calculates the standard deviation of a sample of numbers.
+func stdDev(samples []float64, count int, mean float64) float64 {
 	sumOfSquares := 0.0
 
 	for _, sample := range samples {
@@ -66,25 +66,25 @@ func calcStdDev(samples []float64, count int, mean float64) float64 {
 	}
 
 	// count-1 used as estimating population mean from the sample.
-	// This is compatible with computation of other data analysis libraries.
+	// This is compatible with computation methods of other data analysis libraries.
 	return math.Sqrt(sumOfSquares / float64(count-1))
 }
 
 // Stats calculates the combined statistics of a sample of numbers.
 func Stats(samples []float64) Statistics {
 	count := len(samples)
-	min, max := calcMinMax(samples)
-	mean := calcMean(samples, count)
-	median := calcMedian(samples, count)
-	stddev := calcStdDev(samples, count, mean)
+	minVal, maxVal := minMax(samples)
+	meanVal := mean(samples, count)
+	medianVal := median(samples, count)
+	stdDevVal := stdDev(samples, count, meanVal)
 
 	return Statistics{
 		Count:  count,
-		Min:    min,
-		Max:    max,
-		Mean:   mean,
-		Median: median,
-		StdDev: stddev,
+		Min:    minVal,
+		Max:    maxVal,
+		Mean:   meanVal,
+		Median: medianVal,
+		StdDev: stdDevVal,
 	}
 }
 
