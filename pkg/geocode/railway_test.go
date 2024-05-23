@@ -99,13 +99,13 @@ func TestExplodeTotalYards(t *testing.T) {
 			expectedYards: 1,
 		},
 		{
-			// Large total yards.
+			// Large positive total yards.
 			totalYards:    17_601,
 			expectedMiles: 10,
 			expectedYards: 1,
 		},
 		{
-			// Very large total yards.
+			// Very large positive total yards.
 			totalYards:    176_001,
 			expectedMiles: 100,
 			expectedYards: 1,
@@ -161,7 +161,8 @@ func TestBuildTotalYards(t *testing.T) {
 			yards:              2,
 			expectedTotalYards: 2},
 
-		{miles: 0,
+		{
+			miles:              0,
 			yards:              1_759,
 			expectedTotalYards: 1_759},
 		{
