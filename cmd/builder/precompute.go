@@ -24,7 +24,7 @@ func precompute(cfg GeofurlongConfig, resolution int) { //
 	geocode.Check(err)
 
 	// Set up projection conversion from OSGB planar (EPSG:27700) to geographic longitude / latitude (EPSG:4326).
-	pj := geocode.OSGBtoLongLat()
+	pj := geocode.OSGBToLonLat()
 
 	file, err := os.Create(fmt.Sprintf("%s/geofurlong_precomputed_%.4dy.csv", cfg["precompute_dir"], resolution))
 	geocode.Check(err)

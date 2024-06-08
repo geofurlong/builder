@@ -17,7 +17,7 @@ func TestReproject(t *testing.T) {
 		planarPoints = append(planarPoints, orb.Point{float64(testPlace.easting), float64(testPlace.northing)})
 	}
 
-	geoPoints := ReprojectMulti(planarPoints)
+	geoPoints := ReprojectMulti(planarPoints, OSGBToLonLat())
 	for i, testPlace := range testPlaces {
 		deltaX := geoPoints[i].Point().X() - testPlace.lonLat.X()
 		deltaY := geoPoints[i].Point().Y() - testPlace.lonLat.Y()
@@ -28,9 +28,9 @@ func TestReproject(t *testing.T) {
 		}
 	}
 
-	pj := OSGBtoLongLat()
+	pjToGeo := OSGBToLonLat()
 	for _, testPlace := range testPlaces {
-		geoPoint := Reproject(orb.Point{float64(testPlace.easting), float64(testPlace.northing)}, pj)
+		geoPoint := Reproject(orb.Point{float64(testPlace.easting), float64(testPlace.northing)}, pjToGeo)
 		deltaX := geoPoint.X() - testPlace.lonLat.X()
 		deltaY := geoPoint.Y() - testPlace.lonLat.Y()
 
@@ -39,4 +39,5 @@ func TestReproject(t *testing.T) {
 			t.Fail()
 		}
 	}
+
 }

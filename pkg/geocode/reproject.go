@@ -15,8 +15,8 @@ const (
 	GeographicCRS = "EPSG:4326"
 )
 
-// OSGBtoLongLat returns a pointer to the transformer from projected OSGB36 (EPSG:27700) to geographic Longitude / Latitude (EPSG:4326).
-func OSGBtoLongLat() *proj.PJ {
+// OSGBToLonLat returns a pointer to the transformer from projected OSGB36 (EPSG:27700) to geographic Longitude / Latitude (EPSG:4326).
+func OSGBToLonLat() *proj.PJ {
 	pj, err := proj.NewCRSToCRS(ProjectedCRS, GeographicCRS, nil)
 	Check(err)
 
@@ -33,10 +33,8 @@ func Reproject(point orb.Point, pj *proj.PJ) orb.Point {
 }
 
 // ReprojectMulti takes a slice of projected Easting / Northing points and returns the corresponding Longitude / Latitude points slice.
-func ReprojectMulti(points []orb.Point) []orb.Point {
+func ReprojectMulti(points []orb.Point, pj *proj.PJ) []orb.Point {
 	latLons := make([]orb.Point, len(points))
-	pj, err := proj.NewCRSToCRS(ProjectedCRS, GeographicCRS, nil)
-	Check(err)
 
 	for i, point := range points {
 		latLon, err := pj.Forward(proj.Coord{point.X(), point.Y()})
