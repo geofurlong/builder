@@ -51,7 +51,7 @@ UPDATE gazetteer SET place_name = 'Strathcarron' WHERE elr='KYL' and place_name=
 UPDATE gazetteer SET place_name = 'Duirinish' WHERE elr='KYL' and place_name='Dìurinis';
 UPDATE gazetteer SET place_name = 'Duncraig' WHERE elr='KYL' and place_name='Craig' and total_yards > 55*1760;
 UPDATE gazetteer SET place_name = 'Stromeferry' WHERE elr='KYL' and place_name='Strome Ferry';
-UPDATE gazetteer SET place_name = 'Leven' WHERE elr IN ('MTL1', 'MTL2') and place_name='Innverleven';
+UPDATE gazetteer SET place_name = 'Leven' WHERE elr IN ('MTL1', 'MTL2') and place_name='Innerleven';
 UPDATE gazetteer SET place_name = 'Alness' WHERE elr='WCK' and place_name='Shillinghill';
 
 -- ORDNANCE SURVEY ADMINISTRATIVE AREA.
