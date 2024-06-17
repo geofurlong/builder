@@ -202,6 +202,14 @@ func TestNearestPointOnSegment(t *testing.T) {
 			expectedPoint:    orb.Point{0, 5},
 			expectedDistance: 5.0,
 		},
+		{
+			name:             "Test 3 - Zero Length Segment",
+			startPoint:       orb.Point{55, 33},
+			endPoint:         orb.Point{55, 33},
+			targetPoint:      orb.Point{55, 3},
+			expectedPoint:    orb.Point{55, 33},
+			expectedDistance: 30.0,
+		},
 	}
 
 	for _, tt := range tests {
@@ -353,6 +361,12 @@ func TestPointAtDistanceAlongLine(t *testing.T) {
 			line:          orb.LineString{{3, 4}, {0, 0}, {-3, -4}, {987, -4}},
 			distance:      1000,
 			expectedPoint: orb.Point{987, -4},
+		},
+		{
+			name:          "Test 8 - Negative distance",
+			line:          orb.LineString{{3, 4}, {0, 0}, {-3, -4}},
+			distance:      -999,
+			expectedPoint: orb.Point{3, 4},
 		},
 	}
 
