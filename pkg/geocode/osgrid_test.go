@@ -31,3 +31,17 @@ func TestOSGRToPoint(t *testing.T) {
 		}
 	}
 }
+
+func TestBadOSGRToPoint(t *testing.T) {
+	invalidOSGRs := []string{
+		"ZZabcdef",
+		"AA1234abcd",
+	}
+
+	for _, osgr := range invalidOSGRs {
+		_, err := OSGRToPoint(osgr)
+		if err == nil {
+			t.Errorf("OSGRToPoint(%q) did not return an error", osgr)
+		}
+	}
+}
