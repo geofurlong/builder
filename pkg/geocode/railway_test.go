@@ -411,7 +411,7 @@ func TestFmtMileages(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		res := FmtMileages(c.tyFrom, c.tyTo, c.metric)
+		res := FmtLinear(c.tyFrom, c.tyTo, c.metric)
 		if res != c.expectedString {
 			t.Errorf("FmtMileages(%v, %v, %v) = %v, want %v", c.tyFrom, c.tyTo, c.metric, res, c.expectedString)
 		}

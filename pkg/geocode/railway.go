@@ -52,7 +52,7 @@ func FmtTotalYards(totalYards int, metric bool) string {
 	return fmt.Sprintf("%dM %04dy", miles, yards)
 }
 
-// FmtMileages takes two total yards values and returns a formatted miles / yards or kilometre string.
-func FmtMileages(tyFrom int, tyTo int, metric bool) string {
+// FmtLinear takes two total yards values and returns a formatted miles / yards or kilometre string.
+func FmtLinear(tyFrom int, tyTo int, metric bool) string {
 	return FmtTotalYards(tyFrom, metric) + " to " + FmtTotalYards(tyTo, metric)
 }
