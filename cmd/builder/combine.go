@@ -46,6 +46,13 @@ CREATE VIEW elr_metric AS SELECT elr FROM elr WHERE l_system="K" ORDER BY elr;
 CREATE TABLE calibration AS SELECT elr, total_yards_from, total_yards_to, linear_offset_from_m, linear_offset_to_m, CAST(accuracy AS INT) AS accuracy FROM ext_calib.calibration;
 CREATE UNIQUE INDEX ix_calibration ON calibration (elr, total_yards_from, total_yards_to);
 
+-- Version table.
+CREATE TABLE version (property TEXT NOT NULL, value TEXT NOT NULL, PRIMARY KEY(property));
+INSERT INTO version VALUES("system", "GeoFurlong");
+INSERT INTO version VALUES("version", "%s");
+INSERT INTO version VALUES("url_1", "https://www.geofurlong.com");
+INSERT INTO version VALUES("url_2", "https://www.github.com/geofurlong");
+
 COMMIT;
 
 DETACH DATABASE ext_cl;
@@ -53,7 +60,7 @@ DETACH DATABASE ext_calib;
 
 ANALYZE;
 VACUUM;
-`, cfg["cl_db"], cfg["calib_db"], cfg["elr_csv"])
+`, cfg["cl_db"], cfg["calib_db"], cfg["elr_csv"], cfg["version"])
 
 	runSQLiteCommand(cfg["production_db"], input)
 	log.Print("Production database built")
