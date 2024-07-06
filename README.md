@@ -2,6 +2,8 @@
 
 Geospatial resources for mainline (Network Rail) railways in Britain.
 
+ 🆕 [Python API](https://www.github.com/geofurlong/api_python) available.
+
 ## Description
 
 This repository contains the source-code for the builder process, which transforms multiple geospatial data sources into optimised datasets for client application use. These output datasets are stored on [Dropbox](https://www.dropbox.com/scl/fo/1tzbnx4zaz61nwslqobn9/AOcmAULa79IuAjLNIvZThRQ?rlkey=fx8e3gxwhtgmlq2v0akv827ty&dl=0) and summarised in the [Data Catalogue](#data-catalogue) section below.
@@ -223,7 +225,6 @@ GeoFurlong is built upon a framework of open-source software applications and li
 
 ### To Do
 
-- Publish production database (SQLite format).
 - Publish geospatial databases at varying yardage intervals for `precomputed` and `gazetteer` tables (GeoPackage format).
 - Publish example mapping for multi-disciplinary and environmental datasets.
 - Publish example reverse-geocoded datasets.
