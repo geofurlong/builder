@@ -2,7 +2,7 @@
 
 Geospatial resources for mainline (Network Rail) railways in Britain.
 
- 🆕 [Python API](https://www.github.com/geofurlong/api_python) available.
+See the [Python API](https://www.github.com/geofurlong/api_python) which converts mileages on ELRs to geographic locations.
 
 ## Description
 
