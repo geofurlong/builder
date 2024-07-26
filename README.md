@@ -223,12 +223,7 @@ GeoFurlong is built upon a framework of open-source software applications and li
 - Reference has been made to a Python [library](https://gitlab.com/jbrobertson/os-grid-reference/) for manipulation of OS Grid References.
 - [QGIS](https://qgis.org/en/site/) Geographic Information System.
 
-### To Do
-
-- Publish geospatial databases at varying yardage intervals for `precomputed` and `gazetteer` tables (GeoPackage format).
-- Publish example mapping for multi-disciplinary and environmental datasets.
-- Publish example reverse-geocoded datasets.
-- Publish example data and video footage of mobile application.
+### Accuracy Improvements
 
 Improved linear positioning accuracy could be obtained by utilising more recent surveyed position of mileposts. Milepost positions are regularly surveyed as a matter of course during topographic surveys on the network. The process of collating and overriding milepost positions to improve the calibration accuracy is currently not within the scope of this project.
 
@@ -246,4 +241,4 @@ The project's source code is released under the permissive [MIT Licence](https:/
 
 ### Author
 
-Alan Morrison _CEng MICE Eur Ing FPWI_
+Alan Morrison
