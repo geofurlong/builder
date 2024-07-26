@@ -1,4 +1,4 @@
-// Precomputes geocoded railway positions at a specified resolution.
+// Precomputes geocoded railway positions at a specified yardage resolution for all ELRs.
 
 package main
 
@@ -10,7 +10,8 @@ import (
 	"os"
 )
 
-// precompute generates a CSV file of geocoded railway positions at defined yardage resolution.
+// precompute generates a CSV file of geocoded railway positions at defined yardage resolution, and
+// always including the start and end points of each ELR.
 func precompute(cfg GeofurlongConfig, resolution int) { //
 	log.Printf("Precomputing geocoded railway positions at %d yard resolution\n", resolution)
 
@@ -23,7 +24,7 @@ func precompute(cfg GeofurlongConfig, resolution int) { //
 	gc, err := geocode.NewGeocoder(gcCfg)
 	geocode.Check(err)
 
-	// Set up projection conversion from OSGB planar (EPSG:27700) to geographic longitude / latitude (EPSG:4326).
+	// Set up projection conversion from OSGB projected (EPSG:27700) to geographic longitude / latitude (EPSG:4326).
 	pj := geocode.OSGBToLonLat()
 
 	file, err := os.Create(fmt.Sprintf("%s/geofurlong_precomputed_%.4dy.csv", cfg["precompute_dir"], resolution))
@@ -46,7 +47,7 @@ func precompute(cfg GeofurlongConfig, resolution int) { //
 			}
 
 			if elr == "FTC" && ty >= 21450 {
-				// Skip CTRL (HS1) beyond mainland limits.
+				// NOTE: Hardcoded to skip CTRL (HS1) beyond mainland limits.
 				continue
 			}
 
@@ -56,19 +57,19 @@ func precompute(cfg GeofurlongConfig, resolution int) { //
 			osgr := geocode.PointToOSGR(pt.Point)
 			lonLat := geocode.Reproject(pt.Point, pj)
 
-			// 6 decimal places for lat/lon is approximately 0.11 metre precision,
+			// 6 decimal places for latitude / longitude is approximately 0.11 metre precision,
 			// notionally equivalent to the 0.1 metre precision of the OSGB Easting / Northing.
 			// Linear accuracy is rounded to nearest metre.
 			buffer.WriteString(fmt.Sprintf("%s,%d,%s,%.1f,%.1f,%.6f,%.6f,%s,%d\n",
 				elr,
-				ty,
-				geocode.FmtTotalYards(ty, prop.Metric),
-				pt.Point[0],
-				pt.Point[1],
-				lonLat.X(),
-				lonLat.Y(),
-				osgr,
-				int(pt.Accuracy+0.5)))
+				ty,                                     // Total yards.
+				geocode.FmtTotalYards(ty, prop.Metric), // Formatted mileage.
+				pt.Point[0],                            // OS Easting.
+				pt.Point[1],                            // OS Northing.
+				lonLat.X(),                             // Longitude (decimal degrees).
+				lonLat.Y(),                             // Latitude (decimal degrees).
+				osgr,                                   // Ordnance Survey Grid Reference.
+				int(pt.Accuracy+0.5)))                  // Railway linear accuracy (metres).
 
 			count++
 			if count >= BatchBufferLen {
