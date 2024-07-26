@@ -33,7 +33,7 @@ type letterOrigin struct {
 	origin orb.Point
 }
 
-// tileAndOrigin returns the OSGR tile letter and associated tile origin co-ordinates for an Easting/Northing point.
+// tileAndOrigin returns the OSGR tile letter and associated tile origin co-ordinates for an Easting / Northing point.
 func tileAndOrigin(pt orb.Point, tileSize int) letterOrigin {
 	tilePosX := math.Floor(pt.X() / float64(tileSize))
 	tilePosY := math.Floor(pt.Y() / float64(tileSize))
@@ -43,7 +43,7 @@ func tileAndOrigin(pt orb.Point, tileSize int) letterOrigin {
 	return letterOrigin{letter, orb.Point{originX, originY}}
 }
 
-// tile100kmAndOrigin returns the OSGR tile letters and origin co-ordinates for an Easting/Northing point.
+// tile100kmAndOrigin returns the OSGR tile letters and origin co-ordinates for an Easting / Northing point.
 func tile100kmAndOrigin(pt orb.Point) letterOrigin {
 	lo1 := tileAndOrigin(orb.Point{pt.X() - GridOriginSWEasting, pt.Y() - GridOriginSWNorthing}, PrimaryTileSize)
 	lo2 := tileAndOrigin(orb.Point{pt.X() - lo1.origin.X() - GridOriginSWEasting, pt.Y() - lo1.origin.Y() - GridOriginSWNorthing}, SecondaryTileSize)
